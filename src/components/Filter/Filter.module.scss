@@ -1,0 +1,58 @@
+@value bg-light, royal-blue, text-light, light from '../../sass/values/variables.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+  background-color: bg-light;
+  composes: box-shadow-light from '../../sass/values/composition.scss';
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  margin-right: 0.5rem;
+  height: 1.8rem;
+  width: 1.8rem;
+  fill: none;
+  stroke: royal-blue;
+}
+
+.input {
+  width: 80%;
+  padding: 0.5rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  border: none;
+  background-color: transparent;
+
+  &::placeholder {
+    color: text-light;
+  }
+}
+
+.separator {
+  margin: 2.5rem 0;
+  composes: line-separator from '../../sass/values/composition.scss';
+}
+
+.button {
+  cursor: pointer;
+  padding: 0.8rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: royal-blue;
+  background-color: transparent;
+  border: 1px solid royal-blue;
+  border-radius: 10rem;
+  transition: all 0.5s;
+
+  &:hover {
+    color: light;
+    background-color: royal-blue;
+  }
+}
