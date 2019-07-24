@@ -4,6 +4,8 @@ import '../../sass/main.scss'
 import styles from './App.module.scss'
 import Header from '../Header'
 import Filter from '../Filter'
+import Jobs from '../Jobs'
+import staticData from '../../shared/content/static.json'
 
 class App extends Component {
   constructor(props) {
@@ -38,6 +40,7 @@ class App extends Component {
             searchChangeHandler={this.searchChangeHandler}
             searchKeyDownHandler={this.searchKeyDownHandler}
           />
+          <Jobs data-test="jobs-component" data={staticData.data} />
         </div>
       </div>
     )

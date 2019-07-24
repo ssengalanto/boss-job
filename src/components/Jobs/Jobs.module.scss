@@ -1,0 +1,58 @@
+@value text-light from '../../sass/values/variables.scss';
+
+.main {
+  padding: 3rem;
+}
+
+.separator {
+  margin: 2rem 0;
+  composes: line-separator from '../../sass/values/composition.scss';
+}
+
+.count {
+  font-weight: 600;
+}
+
+.job-title {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.salary {
+  margin-left: auto;
+  font-size: 1.5rem;
+  color: text-light;
+}
+
+.details {
+  margin-top: 2rem;
+}
+
+.column {
+  display: flex;
+}
+
+.column:nth-child(2) {
+  margin-top: 1rem;
+}
+
+.location,
+.education {
+  flex-basis: 35%;
+}
+
+.experience,
+.job-type {
+  flex: 1;
+}
+
+.employer {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+}

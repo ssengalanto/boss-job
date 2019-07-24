@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable jsx-a11y/label-has-for */
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -8,7 +10,11 @@ const Filter = ({ search, searchChangeHandler, searchKeyDownHandler }) => (
   <div className={styles.container}>
     <div className={styles.form}>
       <Search className={styles.icon} />
+      <label htmlFor="filter-input" className="sr-only">
+        Search
+      </label>
       <input
+        id="filter-input"
         data-test="filter-input"
         className={styles.input}
         value={search}

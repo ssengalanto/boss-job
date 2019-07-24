@@ -22,5 +22,10 @@ describe('<App />', () => {
       const component = findByTestAttr(wrapper, 'filter-component')
       expect(component.exists()).toBe(true)
     })
+    it('should render `<Jobs />` component', () => {
+      const wrapper = setup()
+      const component = findByTestAttr(wrapper, 'jobs-component')
+      expect(component.exists()).toBe(true)
+    })
   })
 })

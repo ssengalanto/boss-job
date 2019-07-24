@@ -18,6 +18,10 @@
   "rules": {
     "semi": 0,
     "comma-dangle": 0,
+    "no-confusing-arrow": 0,
+    "implicit-arrow-linebreak": 0,
+    "react/jsx-one-expression-per-line": 0,
+    "object-curly-newline": 0,
     "arrow-parens": ["error", "as-needed"],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
   }
