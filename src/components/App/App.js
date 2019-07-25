@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import '../../sass/main.scss'
 import styles from './App.module.scss'
 import Header from '../Header'
 import Filter from '../Filter'
 import Jobs from '../Jobs'
-import staticData from '../../shared/content/static.json'
+import * as actions from '../../store/actions'
 
-class App extends Component {
+export class App extends Component {
   constructor(props) {
     super(props)
 
@@ -18,9 +20,15 @@ class App extends Component {
     this.searchChangeHandler = this.searchChangeHandler.bind(this)
   }
 
+  componentDidMount() {
+    const { onGetInitData } = this.props
+    onGetInitData()
+  }
+
   searchKeyDownHandler = e => {
+    const { onSearchJobs } = this.props
     if (e.key === 'Enter') {
-      alert(e.target.value)
+      onSearchJobs(e.target.value)
     }
   }
 
@@ -40,11 +48,24 @@ class App extends Component {
             searchChangeHandler={this.searchChangeHandler}
             searchKeyDownHandler={this.searchKeyDownHandler}
           />
-          <Jobs data-test="jobs-component" data={staticData.data} />
+          <Jobs data-test="jobs-component" />
         </div>
       </div>
     )
   }
 }
 
-export default App
+App.propTypes = {
+  onGetInitData: PropTypes.func.isRequired,
+  onSearchJobs: PropTypes.func.isRequired
+}
+
+const mapDispatchToProps = dispatch => ({
+  onGetInitData: () => dispatch(actions.getInitData()),
+  onSearchJobs: search => dispatch(actions.searchJobs(search))
+})
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(App)

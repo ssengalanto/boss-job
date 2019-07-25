@@ -1,3 +1,4 @@
-export const findByTestAttr = (wrapper, val) => {
-  return wrapper.find(`[data-test="${val}"]`)
-}
+/* eslint-disable import/prefer-default-export */
+
+export const findByTestAttr = (wrapper, val) =>
+  wrapper.find(`[data-test="${val}"]`)

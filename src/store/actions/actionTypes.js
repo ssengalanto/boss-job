@@ -1,0 +1,10 @@
+// App
+export const LOADING_START = 'LOADING_START'
+export const HANDLE_ERROR = 'HANDLE_ERROR'
+export const SET_APP_STATE = 'SET_APP_STATE'
+export const SET_JOBS_QUERY = 'SET_JOBS_QUERY'
+export const TOTAL_JOBS_RESET = 'TOTAL_JOBS_RESET'
+
+// Jobs
+export const SET_JOBS_STATE = 'SET_JOBS_STATE'
+export const CLEAR_JOBS_STATE = 'CLEAR_JOBS_STATE'

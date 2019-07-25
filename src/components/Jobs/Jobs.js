@@ -1,5 +1,7 @@
+/* eslint-disable camelcase */
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 import styles from './Jobs.module.scss'
 import JobsTitle from './JobsTitle'
@@ -7,13 +9,13 @@ import JobsDetail from './JobsDetail'
 import FromNow from '../../shared/components/FromNow'
 import Employer from '../../shared/components/Employer'
 
-const Jobs = ({ data }) => (
+export const Jobs = ({ jobs, total_num }) => (
   <main className={styles.main}>
     <div data-test="jobs-count" className={styles.count}>
-      {data.total_num} {data.total_num <= 1 ? 'job' : 'jobs'} found
+      {total_num} {total_num <= 1 ? 'job' : 'jobs'} found
     </div>
     <div className={styles.separator} />
-    {data.jobs.map(job => (
+    {jobs.map(job => (
       <Fragment key={job.id}>
         <div data-test="jobs-item">
           <JobsTitle
@@ -48,30 +50,26 @@ const Jobs = ({ data }) => (
 )
 
 Jobs.propTypes = {
-  data: PropTypes.shape({
-    jobs: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        degree: PropTypes.string.isRequired,
-        job_title: PropTypes.string.isRequired,
-        job_country: PropTypes.string.isRequired,
-        job_type: PropTypes.string.isRequired,
-        job_location: PropTypes.string.isRequired,
-        salary_range_from: PropTypes.number.isRequired,
-        salary_range_to: PropTypes.number.isRequired,
-        company_name: PropTypes.string.isRequired,
-        company_location: PropTypes.string.isRequired,
-        company_logo: PropTypes.string.isRequired,
-        xp_lvl: PropTypes.string.isRequired,
-        job_created_at: PropTypes.string.isRequired
-      })
-    ).isRequired,
-    page: PropTypes.number.isRequired,
-    size: PropTypes.number.isRequired,
-    total_num: PropTypes.number.isRequired,
-    sort: PropTypes.number.isRequired,
-    query: PropTypes.string.isRequired
-  }).isRequired
+  jobs: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      degree: PropTypes.string.isRequired,
+      job_title: PropTypes.string.isRequired,
+      job_country: PropTypes.string.isRequired,
+      job_type: PropTypes.string.isRequired,
+      job_location: PropTypes.string.isRequired,
+      salary_range_from: PropTypes.number.isRequired,
+      salary_range_to: PropTypes.number.isRequired,
+      company_name: PropTypes.string.isRequired,
+      company_location: PropTypes.string.isRequired,
+      company_logo: PropTypes.string.isRequired,
+      xp_lvl: PropTypes.string.isRequired,
+      job_created_at: PropTypes.string.isRequired
+    })
+  ).isRequired,
+  total_num: PropTypes.number.isRequired
 }
 
-export default Jobs
+const mapStateToProps = ({ jobs, app: { total_num } }) => ({ jobs, total_num })
+
+export default connect(mapStateToProps)(Jobs)
