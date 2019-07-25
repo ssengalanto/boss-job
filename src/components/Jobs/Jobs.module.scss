@@ -2,6 +2,7 @@
 
 .main {
   composes: content-padding from '../../sass/values/composition.scss';
+  padding-bottom: 0;
 }
 
 .separator {

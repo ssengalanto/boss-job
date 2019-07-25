@@ -1,7 +1,12 @@
 @value royal-blue, moment, light from '../../sass/values/variables.scss';
 
+.prev-next {
+  color: royalblue;
+}
+
 .container {
   composes: content-padding from '../../sass/values/composition.scss';
+  padding-top: 0;
   display: flex;
   justify-content: center;
 
@@ -10,6 +15,7 @@
     border: none;
     border-radius: 2px;
     margin: 1px;
+    font-weight: 600;
     background-color: transparent;
     font-family: inherit;
     font-size: 1.4rem;
@@ -18,19 +24,16 @@
     transition: all 0.3s;
 
     &:hover {
-      color: light;
-      background-color: royal-blue;
+      color: royal-blue;
     }
 
     &:disabled {
       cursor: not-allowed;
       color: moment;
-      background-color: transparent;
     }
 
     &.active {
-      color: light;
-      background-color: royal-blue;
+      color: royal-blue;
     }
   }
 }

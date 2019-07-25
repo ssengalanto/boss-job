@@ -76,71 +76,92 @@ export class Pagination extends Component {
 
   setPage(page) {
     const { totalPages, onPageChange } = this.props
-
-    if (page < 1 || page > totalPages) {
-      return
+    let currentPage = page
+    if (page < 1) {
+      currentPage = 1
+    } else if (page > totalPages) {
+      currentPage = totalPages
     }
-    onPageChange(page)
 
-    this.setState({ pager: this.getPager(page) })
+    onPageChange(currentPage)
+
+    this.setState({ pager: this.getPager(currentPage) })
   }
 
   render() {
     const { pager } = this.state
-    const { totalPages } = this.props
+    const { totalPages, page } = this.props
 
     return (
       totalPages > 1 && (
         <div className={styles.container} data-test="pagination-pages">
-          {totalPages > 5 && (
-            <button
-              data-test="pagination-first-button"
-              disabled={pager.currentPage === 1}
-              type="button"
-              onClick={() => this.setPage(1)}
-            >
-              First
-            </button>
-          )}
           <button
-            disabled={pager.currentPage === 1}
+            className={styles['prev-next']}
+            disabled={page === 1}
+            data-test="pagination-prev-button"
             type="button"
-            onClick={() => this.setPage(pager.currentPage - 1)}
+            onClick={() => this.setPage(page - 1)}
           >
             &lt;
           </button>
-          {pager.pages.map((page, index) => (
-            <button
-              data-test="pagination-page-button"
-              key={index}
-              className={pager.currentPage === page ? styles.active : ''}
-              type="button"
-              onClick={() => this.setPage(page)}
-            >
-              {page}
-            </button>
-          ))}
           <button
-            className={pager.currentPage === totalPages ? styles.disabled : ''}
-            disabled={pager.currentPage === totalPages}
+            className={page === 1 ? styles.active : ''}
+            data-test="pagination-first-button"
             type="button"
-            onClick={() => this.setPage(pager.currentPage + 1)}
+            onClick={() => this.setPage(1)}
+          >
+            1
+          </button>
+          {page - 3 > 1 && (
+            <button
+              type="button"
+              data-test="pagination-skip-decrement-button"
+              onClick={() => this.setPage(page - 3)}
+            >
+              ...
+            </button>
+          )}
+          {pager.pages.map((pageNum, index) => {
+            if (pageNum === 1) return null
+            if (pageNum === totalPages) return null
+            return (
+              <button
+                data-test="pagination-page-button"
+                key={index}
+                className={pageNum === page ? styles.active : ''}
+                type="button"
+                onClick={() => this.setPage(pageNum)}
+              >
+                {pageNum}
+              </button>
+            )
+          })}
+          {page + 4 <= totalPages && (
+            <button
+              type="button"
+              data-test="pagination-skip-increment-button"
+              onClick={() => this.setPage(page + 3)}
+            >
+              ...
+            </button>
+          )}
+          <button
+            data-test="pagination-last-button"
+            className={page === totalPages ? styles.active : ''}
+            type="button"
+            onClick={() => this.setPage(totalPages)}
+          >
+            {totalPages}
+          </button>
+          <button
+            data-test="pagination-next-button"
+            className={styles['prev-next']}
+            disabled={page === totalPages}
+            type="button"
+            onClick={() => this.setPage(page + 1)}
           >
             &gt;
           </button>
-          {totalPages > 5 && (
-            <button
-              data-test="pagination-last-button"
-              className={
-                pager.currentPage === totalPages ? styles.disabled : ''
-              }
-              disabled={pager.currentPage === totalPages}
-              type="button"
-              onClick={() => this.setPage(totalPages)}
-            >
-              Last
-            </button>
-          )}
         </div>
       )
     )

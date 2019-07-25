@@ -34,28 +34,42 @@ describe('<Pagination />', () => {
       const component = findByTestAttr(wrapper, 'pagination-pages')
       expect(component.exists()).toBe(false)
     })
-    it('should render `first button` when totalPages > 5', () => {
-      const totalPages = 6
-      const wrapper = setup({ totalPages })
-      const component = findByTestAttr(wrapper, 'pagination-first-button')
-      expect(component.exists()).toBe(true)
-    })
-    it('should not render `first button` when totalPages < 5', () => {
-      const totalPages = 4
-      const wrapper = setup({ totalPages })
-      const component = findByTestAttr(wrapper, 'pagination-first-button')
+    it('should not render `skip-decrement-button` when page >= 1', () => {
+      const page = 1
+      const wrapper = setup({ page })
+      const component = findByTestAttr(
+        wrapper,
+        'pagination-skip-decrement-button'
+      )
       expect(component.exists()).toBe(false)
     })
-    it('should render `last button` when totalPages > 5', () => {
-      const totalPages = 6
-      const wrapper = setup({ totalPages })
-      const component = findByTestAttr(wrapper, 'pagination-last-button')
+    it('should render `skip-decrement-button` when page -3 > 1', () => {
+      const page = 5
+      const wrapper = setup({ page })
+      const component = findByTestAttr(
+        wrapper,
+        'pagination-skip-decrement-button'
+      )
       expect(component.exists()).toBe(true)
     })
-    it('should not render `last button` when totalPages < 5', () => {
-      const totalPages = 4
-      const wrapper = setup({ totalPages })
-      const component = findByTestAttr(wrapper, 'pagination-last-button')
+    it('should render `skip-increment-button` when page + 4 < totalPages', () => {
+      const page = 10
+      const totalPages = 15
+      const wrapper = setup({ page, totalPages })
+      const component = findByTestAttr(
+        wrapper,
+        'pagination-skip-increment-button'
+      )
+      expect(component.exists()).toBe(true)
+    })
+    it('should not render `skip-increment-button` when page + 4 >= totalPages', () => {
+      const page = 13
+      const totalPages = 15
+      const wrapper = setup({ page, totalPages })
+      const component = findByTestAttr(
+        wrapper,
+        'pagination-skip-increment-button'
+      )
       expect(component.exists()).toBe(false)
     })
   })
@@ -63,10 +77,11 @@ describe('<Pagination />', () => {
   describe('<Pagination /> Interactions', () => {
     let wrapper
     let onPageChange
+    const page = 10
     const totalPages = 200
     beforeEach(() => {
       onPageChange = jest.fn()
-      wrapper = setup({ onPageChange, totalPages })
+      wrapper = setup({ onPageChange, totalPages, page })
     })
 
     it('should call `onPageChange` on `first-button` click', () => {
@@ -82,10 +97,34 @@ describe('<Pagination />', () => {
       expect(onPageChange).toHaveBeenCalledWith(totalPages)
     })
     it('should call `onPageChange` on `page-button` click', () => {
-      const button = findByTestAttr(wrapper, 'pagination-page-button').at(3)
+      const button = findByTestAttr(wrapper, 'pagination-page-button').at(1)
       button.simulate('click')
       expect(onPageChange).toHaveBeenCalled()
-      expect(onPageChange).toHaveBeenCalledWith(4)
+      expect(onPageChange).toHaveBeenCalledWith(page)
+    })
+    it('should call `onPageChange` on `next-button` click', () => {
+      const button = findByTestAttr(wrapper, 'pagination-prev-button')
+      button.simulate('click')
+      expect(onPageChange).toHaveBeenCalled()
+      expect(onPageChange).toHaveBeenCalledWith(page - 1)
+    })
+    it('should call `onPageChange` on `prev-button` click', () => {
+      const button = findByTestAttr(wrapper, 'pagination-next-button')
+      button.simulate('click')
+      expect(onPageChange).toHaveBeenCalled()
+      expect(onPageChange).toHaveBeenCalledWith(page + 1)
+    })
+    it('should call `onPageChange` on `skip-increment-button` click', () => {
+      const button = findByTestAttr(wrapper, 'pagination-skip-increment-button')
+      button.simulate('click')
+      expect(onPageChange).toHaveBeenCalled()
+      expect(onPageChange).toHaveBeenCalledWith(page + 3)
+    })
+    it('should call `onPageChange` on `skip-decrement-button` click', () => {
+      const button = findByTestAttr(wrapper, 'pagination-skip-decrement-button')
+      button.simulate('click')
+      expect(onPageChange).toHaveBeenCalled()
+      expect(onPageChange).toHaveBeenCalledWith(page - 3)
     })
   })
 })
