@@ -1,0 +1,11 @@
+@value danger from '../../../sass/values/variables.scss';
+
+.container {
+  composes: content-padding from '../../../sass/values/composition.scss';
+}
+
+.error {
+  text-align: center;
+  color: danger;
+  font-size: 1.4rem;
+}

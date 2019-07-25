@@ -28,17 +28,19 @@ export const setJobsState = jobs => ({
 
 export const getAsyncData = (page, query) => async (dispatch, getState) => {
   const {
-    app: { size }
+    app: { size, sort }
   } = getState()
 
   try {
     dispatch(loadingStart())
     const response = await axios(
-      `?size=${size}&query=${encodeURIComponent(query)}&page=${page}`
+      `?size=${size}&sort=${sort}&query=${encodeURIComponent(
+        query
+      )}&page=${page}`
     )
     const appData = getAppData(response.data.data)
     const jobsData = getJobsData(response.data.data.jobs)
-
+    console.log(response)
     dispatch(setAppState(appData))
     dispatch(setJobsState(jobsData))
     dispatch(loadingStop())
@@ -74,5 +76,6 @@ export const paginateSearch = currentPage => (dispatch, getState) => {
 
   if (currentPage === page) return
 
+  window.scrollTo(0, 0)
   dispatch(getAsyncData(currentPage, query))
 }

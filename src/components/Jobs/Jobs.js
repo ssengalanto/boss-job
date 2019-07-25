@@ -3,16 +3,21 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import styles from './Jobs.module.scss'
+import ErrorMessage from '../../shared/components/ErrorMessage'
 import Loader from '../../shared/components/Loader'
 import JobsTitle from './JobsTitle'
 import JobsDetail from './JobsDetail'
 import FromNow from '../../shared/components/FromNow'
 import Employer from '../../shared/components/Employer'
 
-export const Jobs = ({ jobs, totalJobs, loading }) => {
+export const Jobs = ({ jobs, totalJobs, loading, error }) => {
   let content
   if (loading) {
     content = <Loader data-test="jobs-loader-component" />
+  } else if (error) {
+    content = (
+      <ErrorMessage error={error} data-test="jobs-error-message-component" />
+    )
   } else {
     content = (
       <main data-test="main" className={styles.main}>
@@ -57,6 +62,10 @@ export const Jobs = ({ jobs, totalJobs, loading }) => {
   return content
 }
 
+Jobs.defaultProps = {
+  error: null
+}
+
 Jobs.propTypes = {
   jobs: PropTypes.arrayOf(
     PropTypes.shape({
@@ -76,13 +85,15 @@ Jobs.propTypes = {
     })
   ).isRequired,
   totalJobs: PropTypes.number.isRequired,
-  loading: PropTypes.bool.isRequired
+  loading: PropTypes.bool.isRequired,
+  error: PropTypes.string
 }
 
-const mapStateToProps = ({ jobs, app: { totalJobs, loading } }) => ({
+const mapStateToProps = ({ jobs, app: { totalJobs, loading, error } }) => ({
   jobs,
   totalJobs,
-  loading
+  loading,
+  error
 })
 
 export default connect(mapStateToProps)(Jobs)

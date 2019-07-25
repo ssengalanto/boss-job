@@ -1,7 +1,7 @@
 @value royal-blue, moment, light from '../../sass/values/variables.scss';
 
 .container {
-  padding: 3rem;
+  composes: content-padding from '../../sass/values/composition.scss';
   display: flex;
   justify-content: center;
 

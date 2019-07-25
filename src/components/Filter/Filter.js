@@ -2,11 +2,17 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 import styles from './Filter.module.scss'
 import Search from '../../shared/components/Icons/Search'
 
-const Filter = ({ search, searchChangeHandler, searchKeyDownHandler }) => (
+export const Filter = ({
+  search,
+  loading,
+  searchChangeHandler,
+  searchKeyDownHandler
+}) => (
   <div className={styles.container}>
     <div className={styles.form}>
       <Search className={styles.icon} />
@@ -16,7 +22,7 @@ const Filter = ({ search, searchChangeHandler, searchKeyDownHandler }) => (
       <input
         id="filter-input"
         data-test="filter-input"
-        className={styles.input}
+        className={`${styles.input} ${loading && styles.wait}`}
         value={search}
         onChange={searchChangeHandler}
         onKeyDown={searchKeyDownHandler}
@@ -32,9 +38,14 @@ const Filter = ({ search, searchChangeHandler, searchKeyDownHandler }) => (
 )
 
 Filter.propTypes = {
+  loading: PropTypes.bool.isRequired,
   search: PropTypes.string.isRequired,
   searchChangeHandler: PropTypes.func.isRequired,
   searchKeyDownHandler: PropTypes.func.isRequired
 }
 
-export default Filter
+const mapStateToProps = ({ app: { loading } }) => ({
+  loading
+})
+
+export default connect(mapStateToProps)(Filter)

@@ -1,7 +1,7 @@
 @value text-light from '../../sass/values/variables.scss';
 
 .main {
-  padding: 3rem;
+  composes: content-padding from '../../sass/values/composition.scss';
 }
 
 .separator {

@@ -22,7 +22,7 @@ describe('<Jobs />', () => {
       job_created_at: ''
     }
   ]
-  const defaultProps = { jobs, totalJobs: 0, loading: false }
+  const defaultProps = { jobs, totalJobs: 0, loading: false, error: null }
   const setup = (props = {}) => {
     const setupProps = { ...defaultProps, ...props }
     return shallow(<Jobs {...setupProps} />)
@@ -41,6 +41,16 @@ describe('<Jobs />', () => {
     it('should not `main content` render when props.loading is true', () => {
       const wrapper = setup({ loading: true })
       const component = findByTestAttr(wrapper, 'main')
+      expect(component.exists()).toBe(false)
+    })
+    it('renders `<ErrorMessage />` when props.error is falsy', () => {
+      const wrapper = setup({ error: 'some error' })
+      const component = findByTestAttr(wrapper, 'jobs-error-message-component')
+      expect(component.exists()).toBe(true)
+    })
+    it('should not `<ErrorMessage />` render when props.error is truthy', () => {
+      const wrapper = setup({ error: null })
+      const component = findByTestAttr(wrapper, 'jobs-error-message-component')
       expect(component.exists()).toBe(false)
     })
     it('should render `<Loader />` when props.loading is true', () => {

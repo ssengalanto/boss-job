@@ -31,7 +31,7 @@ const appReducer = (state = initialState, action) => {
     case actionTypes.HANDLE_ERROR:
       return {
         ...state,
-        error: action.error
+        error: action.error.message
       }
 
     default:

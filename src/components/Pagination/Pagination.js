@@ -10,7 +10,14 @@ export class Pagination extends Component {
   constructor(props) {
     super(props)
 
-    this.state = { pager: {} }
+    this.state = {
+      pager: {
+        currentPage: null,
+        startPage: null,
+        endPage: null,
+        pages: []
+      }
+    }
 
     this.setPage = this.setPage.bind(this)
     this.getPager = this.getPager.bind(this)
@@ -73,7 +80,6 @@ export class Pagination extends Component {
     if (page < 1 || page > totalPages) {
       return
     }
-    window.scrollTo(0, 0)
     onPageChange(page)
 
     this.setState({ pager: this.getPager(page) })
@@ -83,57 +89,60 @@ export class Pagination extends Component {
     const { pager } = this.state
     const { totalPages } = this.props
 
-    if (!pager.pages || pager.pages.length <= 1) {
-      return null
-    }
-
     return (
-      <div className={styles.container} data-test="pagination-pages">
-        {totalPages > 5 && (
+      totalPages > 1 && (
+        <div className={styles.container} data-test="pagination-pages">
+          {totalPages > 5 && (
+            <button
+              data-test="pagination-first-button"
+              disabled={pager.currentPage === 1}
+              type="button"
+              onClick={() => this.setPage(1)}
+            >
+              First
+            </button>
+          )}
           <button
             disabled={pager.currentPage === 1}
             type="button"
-            onClick={() => this.setPage(1)}
+            onClick={() => this.setPage(pager.currentPage - 1)}
           >
-            First
+            &lt;
           </button>
-        )}
-        <button
-          disabled={pager.currentPage === 1}
-          type="button"
-          onClick={() => this.setPage(pager.currentPage - 1)}
-        >
-          &lt;
-        </button>
-        {pager.pages.map((page, index) => (
+          {pager.pages.map((page, index) => (
+            <button
+              data-test="pagination-page-button"
+              key={index}
+              className={pager.currentPage === page ? styles.active : ''}
+              type="button"
+              onClick={() => this.setPage(page)}
+            >
+              {page}
+            </button>
+          ))}
           <button
-            key={index}
-            className={pager.currentPage === page && `${styles.active}`}
-            type="button"
-            onClick={() => this.setPage(page)}
-          >
-            {page}
-          </button>
-        ))}
-        <button
-          className={`${pager.currentPage === totalPages && styles.disabled}`}
-          disabled={pager.currentPage === totalPages}
-          type="button"
-          onClick={() => this.setPage(pager.currentPage + 1)}
-        >
-          &gt;
-        </button>
-        {totalPages > 5 && (
-          <button
-            className={`${pager.currentPage === totalPages && styles.disabled}`}
+            className={pager.currentPage === totalPages ? styles.disabled : ''}
             disabled={pager.currentPage === totalPages}
             type="button"
-            onClick={() => this.setPage(totalPages)}
+            onClick={() => this.setPage(pager.currentPage + 1)}
           >
-            Last
+            &gt;
           </button>
-        )}
-      </div>
+          {totalPages > 5 && (
+            <button
+              data-test="pagination-last-button"
+              className={
+                pager.currentPage === totalPages ? styles.disabled : ''
+              }
+              disabled={pager.currentPage === totalPages}
+              type="button"
+              onClick={() => this.setPage(totalPages)}
+            >
+              Last
+            </button>
+          )}
+        </div>
+      )
     )
   }
 }

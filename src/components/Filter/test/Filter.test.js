@@ -2,11 +2,12 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import { findByTestAttr } from '../../../test/testUtils'
-import Filter from '../Filter'
+import { Filter } from '../Filter'
 
 describe('<Filter />', () => {
   const defaultProps = {
     search: '',
+    loading: false,
     searchChangeHandler: jest.fn(),
     searchKeyDownHandler: jest.fn()
   }

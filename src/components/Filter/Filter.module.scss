@@ -1,9 +1,9 @@
 @value bg-light, royal-blue, text-light, light from '../../sass/values/variables.scss';
 
 .container {
+  composes: content-padding from '../../sass/values/composition.scss';
   display: flex;
   flex-direction: column;
-  padding: 3rem;
   background-color: bg-light;
   composes: box-shadow-light from '../../sass/values/composition.scss';
 }
@@ -33,6 +33,10 @@
   &::placeholder {
     color: text-light;
   }
+}
+
+.wait {
+  cursor: wait;
 }
 
 .separator {

@@ -8,3 +8,7 @@
   background: #fff;
   min-height: 70rem;
 }
+
+.no-focus-ring *:focus {
+  outline: none;
+}

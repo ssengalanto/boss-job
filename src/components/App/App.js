@@ -15,9 +15,11 @@ export class App extends Component {
     super(props)
 
     this.state = {
-      search: ''
+      search: '',
+      isTabbing: false
     }
 
+    this.focusOutlineHandler = this.focusOutlineHandler.bind(this)
     this.searchChangeHandler = this.searchChangeHandler.bind(this)
     this.searchKeyDownHandler = this.searchKeyDownHandler.bind(this)
   }
@@ -25,6 +27,12 @@ export class App extends Component {
   componentDidMount() {
     const { onGetInitState } = this.props
     onGetInitState()
+  }
+
+  focusOutlineHandler(e) {
+    if (e.key === 'Tab') {
+      this.setState({ isTabbing: true })
+    }
   }
 
   searchKeyDownHandler(e) {
@@ -39,9 +47,13 @@ export class App extends Component {
   }
 
   render() {
-    const { search } = this.state
+    const { search, isTabbing } = this.state
     return (
-      <div className={styles.wrapper}>
+      <div
+        className={`${styles.wrapper} ${!isTabbing && styles['no-focus-ring']}`}
+        onKeyDown={this.focusOutlineHandler}
+        role="presentation"
+      >
         <div className={styles.container}>
           <Header data-test="header-component" />
           <Filter
