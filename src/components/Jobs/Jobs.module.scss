@@ -19,6 +19,7 @@
 }
 
 .title {
+  flex-basis: 65%;
   font-size: 1.5rem;
   font-weight: 600;
 }
@@ -43,7 +44,7 @@
 
 .location,
 .education {
-  flex-basis: 35%;
+  flex-basis: 42%;
 }
 
 .experience,
@@ -52,7 +53,7 @@
 }
 
 .employer {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   display: flex;
   align-items: center;
 }

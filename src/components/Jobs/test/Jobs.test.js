@@ -22,7 +22,7 @@ describe('<Jobs />', () => {
       job_created_at: ''
     }
   ]
-  const defaultProps = { jobs, total_num: 0 }
+  const defaultProps = { jobs, total_num: 0, loading: false }
   const setup = (props = {}) => {
     const setupProps = { ...defaultProps, ...props }
     return shallow(<Jobs {...setupProps} />)
@@ -32,6 +32,26 @@ describe('<Jobs />', () => {
     it('renders without error', () => {
       const wrapper = setup()
       expect(wrapper.exists()).toBe(true)
+    })
+    it('renders `main content` when props.loading is false', () => {
+      const wrapper = setup({ loading: false })
+      const component = findByTestAttr(wrapper, 'main')
+      expect(component.exists()).toBe(true)
+    })
+    it('should not `main content` render when props.loading is true', () => {
+      const wrapper = setup({ loading: true })
+      const component = findByTestAttr(wrapper, 'main')
+      expect(component.exists()).toBe(false)
+    })
+    it('should render `<Loader />` when props.loading is true', () => {
+      const wrapper = setup({ loading: true })
+      const component = findByTestAttr(wrapper, 'jobs-loader-component')
+      expect(component.exists()).toBe(true)
+    })
+    it('should not render `<Loader />` when props.loading is false', () => {
+      const wrapper = setup({ loading: false })
+      const component = findByTestAttr(wrapper, 'jobs-loader-component')
+      expect(component.exists()).toBe(false)
     })
     it('renders <JobsTitle /> component without error', () => {
       const wrapper = setup()
@@ -71,6 +91,4 @@ describe('<Jobs />', () => {
       expect(component).toHaveLength(jobs.length)
     })
   })
-
-  describe('<Jobs /> Interactions', () => {})
 })

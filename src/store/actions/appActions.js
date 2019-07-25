@@ -8,6 +8,10 @@ export const loadingStart = () => ({
   type: actionTypes.LOADING_START
 })
 
+export const loadingStop = () => ({
+  type: actionTypes.LOADING_STOP
+})
+
 export const handleError = error => ({
   type: actionTypes.HANDLE_ERROR,
   error
@@ -33,8 +37,10 @@ export const getInitData = () => async (dispatch, getState) => {
 
     dispatch(setAppState(appData))
     dispatch(setJobsState(jobsData))
+    dispatch(loadingStop())
   } catch (error) {
     dispatch(handleError(error))
+    dispatch(loadingStop())
   }
 }
 
@@ -56,7 +62,9 @@ export const searchJobs = search => async (dispatch, getState) => {
 
     dispatch(setAppState(appData))
     dispatch(setJobsState(jobsData))
+    dispatch(loadingStop())
   } catch (error) {
     dispatch(handleError(error))
+    dispatch(loadingStop())
   }
 }

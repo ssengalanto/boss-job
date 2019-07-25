@@ -5,7 +5,7 @@ const initialState = {
   error: null,
   page: 1,
   size: 12,
-  query: '',
+  query: 'Cloud Services Manager',
   total_num: 0,
   total_pages: 0,
   sort: 1
@@ -17,6 +17,11 @@ const appReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: true
+      }
+    case actionTypes.LOADING_STOP:
+      return {
+        ...state,
+        loading: false
       }
     case actionTypes.SET_APP_STATE:
       return {

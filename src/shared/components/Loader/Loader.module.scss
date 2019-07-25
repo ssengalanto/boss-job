@@ -1,0 +1,44 @@
+.main {
+  padding: 3rem;
+}
+
+.separator {
+  margin: 2rem 0;
+  height: 1px;
+}
+
+.text {
+  height: 1.3rem;
+}
+
+.title {
+  height: 1.5rem;
+}
+
+.logo {
+  height: 4rem;
+  width: 4rem;
+}
+
+.job-title {
+  display: flex;
+  align-items: center;
+}
+
+.details {
+  margin-top: 2rem;
+}
+
+.column {
+  display: flex;
+}
+
+.column:nth-child(2) {
+  margin-top: 1rem;
+}
+
+.employer {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+}

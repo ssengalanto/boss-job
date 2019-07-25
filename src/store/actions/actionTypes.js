@@ -1,5 +1,6 @@
 // App
 export const LOADING_START = 'LOADING_START'
+export const LOADING_STOP = 'LOADING_STOP'
 export const HANDLE_ERROR = 'HANDLE_ERROR'
 export const SET_APP_STATE = 'SET_APP_STATE'
 export const SET_JOBS_QUERY = 'SET_JOBS_QUERY'
