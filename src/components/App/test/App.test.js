@@ -6,8 +6,8 @@ import { App } from '../App'
 
 describe('<App />', () => {
   const defaultProps = {
-    onGetInitData: jest.fn(),
-    onSearchJobs: jest.fn()
+    onGetInitState: jest.fn(),
+    onJobSearch: jest.fn()
   }
   const setup = (props = {}) => {
     const setupProps = { ...defaultProps, ...props }
@@ -20,10 +20,10 @@ describe('<App />', () => {
       expect(wrapper.exists()).toBe(true)
     })
     it('should call `onGetInitData` on componentDidMount', () => {
-      const onGetInitData = jest.fn()
-      const wrapper = setup({ onGetInitData })
+      const onGetInitState = jest.fn()
+      const wrapper = setup({ onGetInitState })
       wrapper.instance().componentDidMount()
-      expect(onGetInitData).toHaveBeenCalled()
+      expect(onGetInitState).toHaveBeenCalled()
     })
     it('should render `<Header />` component', () => {
       const wrapper = setup()

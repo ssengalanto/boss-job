@@ -1,0 +1,36 @@
+@value royal-blue, moment, light from '../../sass/values/variables.scss';
+
+.container {
+  padding: 3rem;
+  display: flex;
+  justify-content: center;
+
+  & button {
+    cursor: pointer;
+    border: none;
+    border-radius: 2px;
+    margin: 1px;
+    background-color: transparent;
+    font-family: inherit;
+    font-size: 1.4rem;
+    padding: 6px 0;
+    width: 35px;
+    transition: all 0.3s;
+
+    &:hover {
+      color: light;
+      background-color: royal-blue;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      color: moment;
+      background-color: transparent;
+    }
+
+    &.active {
+      color: light;
+      background-color: royal-blue;
+    }
+  }
+}

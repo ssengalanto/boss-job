@@ -5,9 +5,9 @@ const initialState = {
   error: null,
   page: 1,
   size: 12,
-  query: 'Cloud Services Manager',
-  total_num: 0,
-  total_pages: 0,
+  query: '',
+  totalJobs: 0,
+  totalPages: 0,
   sort: 1
 }
 

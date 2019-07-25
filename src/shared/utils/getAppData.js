@@ -8,8 +8,8 @@ const getAppData = data => {
     size,
     query,
     sort,
-    total_num,
-    total_pages
+    totalJobs: total_num,
+    totalPages: total_pages
   }
 }
 

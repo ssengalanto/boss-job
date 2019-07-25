@@ -1,1 +1,1 @@
-export { getInitData, searchJobs } from './appActions'
+export { getInitData, jobSearch, paginateSearch } from './appActions'

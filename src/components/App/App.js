@@ -7,6 +7,7 @@ import styles from './App.module.scss'
 import Header from '../Header'
 import Filter from '../Filter'
 import Jobs from '../Jobs'
+import Pagination from '../Pagination'
 import * as actions from '../../store/actions'
 
 export class App extends Component {
@@ -18,17 +19,18 @@ export class App extends Component {
     }
 
     this.searchChangeHandler = this.searchChangeHandler.bind(this)
+    this.searchKeyDownHandler = this.searchKeyDownHandler.bind(this)
   }
 
   componentDidMount() {
-    const { onGetInitData } = this.props
-    onGetInitData()
+    const { onGetInitState } = this.props
+    onGetInitState()
   }
 
-  searchKeyDownHandler = e => {
-    const { onSearchJobs } = this.props
+  searchKeyDownHandler(e) {
+    const { onJobSearch } = this.props
     if (e.key === 'Enter') {
-      onSearchJobs(e.target.value)
+      onJobSearch(e.target.value)
     }
   }
 
@@ -49,6 +51,7 @@ export class App extends Component {
             searchKeyDownHandler={this.searchKeyDownHandler}
           />
           <Jobs data-test="jobs-component" />
+          <Pagination />
         </div>
       </div>
     )
@@ -56,13 +59,13 @@ export class App extends Component {
 }
 
 App.propTypes = {
-  onGetInitData: PropTypes.func.isRequired,
-  onSearchJobs: PropTypes.func.isRequired
+  onGetInitState: PropTypes.func.isRequired,
+  onJobSearch: PropTypes.func.isRequired
 }
 
 const mapDispatchToProps = dispatch => ({
-  onGetInitData: () => dispatch(actions.getInitData()),
-  onSearchJobs: search => dispatch(actions.searchJobs(search))
+  onGetInitState: () => dispatch(actions.getInitData()),
+  onJobSearch: search => dispatch(actions.jobSearch(search))
 })
 
 export default connect(

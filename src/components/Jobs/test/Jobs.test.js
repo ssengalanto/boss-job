@@ -22,7 +22,7 @@ describe('<Jobs />', () => {
       job_created_at: ''
     }
   ]
-  const defaultProps = { jobs, total_num: 0, loading: false }
+  const defaultProps = { jobs, totalJobs: 0, loading: false }
   const setup = (props = {}) => {
     const setupProps = { ...defaultProps, ...props }
     return shallow(<Jobs {...setupProps} />)
@@ -73,15 +73,15 @@ describe('<Jobs />', () => {
       const component = findByTestAttr(wrapper, 'jobs-from-now-component')
       expect(component.exists()).toBe(true)
     })
-    it('should display `job` instead of `jobs` when total_num <= 1', () => {
+    it('should display `job` instead of `jobs` when totalJobs <= 1', () => {
       const total = 0
-      const wrapper = setup({ total_num: total })
+      const wrapper = setup({ totalJobs: total })
       const count = findByTestAttr(wrapper, 'jobs-count')
       expect(count.text()).toBe(`${total} job found`)
     })
-    it('should display `jobs` instead of `job` when total_num > 1', () => {
+    it('should display `jobs` instead of `job` when totalJobs > 1', () => {
       const total = 2
-      const wrapper = setup({ total_num: total })
+      const wrapper = setup({ totalJobs: total })
       const count = findByTestAttr(wrapper, 'jobs-count')
       expect(count.text()).toBe(`${total} jobs found`)
     })

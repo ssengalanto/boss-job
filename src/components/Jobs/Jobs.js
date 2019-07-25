@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -10,7 +9,7 @@ import JobsDetail from './JobsDetail'
 import FromNow from '../../shared/components/FromNow'
 import Employer from '../../shared/components/Employer'
 
-export const Jobs = ({ jobs, total_num, loading }) => {
+export const Jobs = ({ jobs, totalJobs, loading }) => {
   let content
   if (loading) {
     content = <Loader data-test="jobs-loader-component" />
@@ -18,7 +17,7 @@ export const Jobs = ({ jobs, total_num, loading }) => {
     content = (
       <main data-test="main" className={styles.main}>
         <div data-test="jobs-count" className={styles.count}>
-          {total_num} {total_num <= 1 ? 'job' : 'jobs'} found
+          {totalJobs} {totalJobs <= 1 ? 'job' : 'jobs'} found
         </div>
         <div className={styles.separator} />
         {jobs.map(job => (
@@ -76,13 +75,13 @@ Jobs.propTypes = {
       job_created_at: PropTypes.string.isRequired
     })
   ).isRequired,
-  total_num: PropTypes.number.isRequired,
+  totalJobs: PropTypes.number.isRequired,
   loading: PropTypes.bool.isRequired
 }
 
-const mapStateToProps = ({ jobs, app: { total_num, loading } }) => ({
+const mapStateToProps = ({ jobs, app: { totalJobs, loading } }) => ({
   jobs,
-  total_num,
+  totalJobs,
   loading
 })
 

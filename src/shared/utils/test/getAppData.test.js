@@ -8,8 +8,8 @@ describe('getAppData', () => {
     expect(result).toEqual({
       page: 1,
       size: 10,
-      total_num: 265,
-      total_pages: 43,
+      totalJobs: 265,
+      totalPages: 43,
       sort: 1,
       query: ''
     })
