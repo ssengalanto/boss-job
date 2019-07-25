@@ -13,14 +13,14 @@ export const Filter = ({
   searchChangeHandler,
   searchKeyDownHandler
 }) => (
-  <div className={styles.container}>
+  <section className={styles.container}>
     <div className={styles.form}>
       <Search className={styles.icon} />
-      <label htmlFor="filter-input" className="sr-only">
+      <label htmlFor="search-filter" className="sr-only">
         Search
       </label>
       <input
-        id="filter-input"
+        id="search-filter"
         data-test="filter-input"
         className={`${styles.input} ${loading && styles.wait}`}
         value={search}
@@ -34,7 +34,7 @@ export const Filter = ({
     <button type="button" className={styles.button}>
       Filter results
     </button>
-  </div>
+  </section>
 )
 
 Filter.propTypes = {

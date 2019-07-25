@@ -94,24 +94,29 @@ export class Pagination extends Component {
 
     return (
       totalPages > 1 && (
-        <div className={styles.container} data-test="pagination-pages">
+        <section className={styles.container} data-test="pagination-pages">
+          {/* prev button */}
           <button
             className={styles['prev-next']}
             disabled={page === 1}
             data-test="pagination-prev-button"
             type="button"
             onClick={() => this.setPage(page - 1)}
+            aria-label="previous"
           >
             &lt;
           </button>
+          {/* first page button */}
           <button
             className={page === 1 ? styles.active : ''}
             data-test="pagination-first-button"
             type="button"
             onClick={() => this.setPage(1)}
+            aria-label="page 1"
           >
             1
           </button>
+          {/* skip button `decrement` */}
           {page - 3 > 1 && (
             <button
               type="button"
@@ -121,6 +126,7 @@ export class Pagination extends Component {
               ...
             </button>
           )}
+          {/* page buttons */}
           {pager.pages.map((pageNum, index) => {
             if (pageNum === 1) return null
             if (pageNum === totalPages) return null
@@ -131,11 +137,13 @@ export class Pagination extends Component {
                 className={pageNum === page ? styles.active : ''}
                 type="button"
                 onClick={() => this.setPage(pageNum)}
+                aria-label={`page ${pageNum}`}
               >
                 {pageNum}
               </button>
             )
           })}
+          {/* skip button `increment` */}
           {page + 4 <= totalPages && (
             <button
               type="button"
@@ -145,24 +153,28 @@ export class Pagination extends Component {
               ...
             </button>
           )}
+          {/* last page button */}
           <button
             data-test="pagination-last-button"
             className={page === totalPages ? styles.active : ''}
             type="button"
             onClick={() => this.setPage(totalPages)}
+            aria-label={`page ${totalPages}`}
           >
             {totalPages}
           </button>
+          {/* next button */}
           <button
             data-test="pagination-next-button"
             className={styles['prev-next']}
             disabled={page === totalPages}
             type="button"
             onClick={() => this.setPage(page + 1)}
+            aria-label="next"
           >
             &gt;
           </button>
-        </div>
+        </section>
       )
     )
   }

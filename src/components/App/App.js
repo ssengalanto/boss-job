@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { Helmet } from 'react-helmet'
 
 import '../../sass/main.scss'
 import styles from './App.module.scss'
@@ -49,23 +50,30 @@ export class App extends Component {
   render() {
     const { search, isTabbing } = this.state
     return (
-      <div
-        className={`${styles.wrapper} ${!isTabbing && styles['no-focus-ring']}`}
-        onKeyDown={this.focusOutlineHandler}
-        role="presentation"
-      >
-        <div className={styles.container}>
-          <Header data-test="header-component" />
-          <Filter
-            data-test="filter-component"
-            search={search}
-            searchChangeHandler={this.searchChangeHandler}
-            searchKeyDownHandler={this.searchKeyDownHandler}
-          />
-          <Jobs data-test="jobs-component" />
-          <Pagination />
+      <>
+        <Helmet>
+          <title>Jobs | Bossjob</title>
+          <meta name="description" content="Job Hiring" />
+        </Helmet>
+        <div
+          className={`${styles.wrapper} ${!isTabbing &&
+            styles['no-focus-ring']}`}
+          onKeyDown={this.focusOutlineHandler}
+          role="presentation"
+        >
+          <div className={styles.container}>
+            <Header data-test="header-component" />
+            <Filter
+              data-test="filter-component"
+              search={search}
+              searchChangeHandler={this.searchChangeHandler}
+              searchKeyDownHandler={this.searchKeyDownHandler}
+            />
+            <Jobs data-test="jobs-component" />
+            <Pagination />
+          </div>
         </div>
-      </div>
+      </>
     )
   }
 }
