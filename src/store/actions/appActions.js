@@ -40,7 +40,7 @@ export const getAsyncData = (page, query) => async (dispatch, getState) => {
     )
     const appData = getAppData(response.data.data)
     const jobsData = getJobsData(response.data.data.jobs)
-    console.log(response)
+
     dispatch(setAppState(appData))
     dispatch(setJobsState(jobsData))
     dispatch(loadingStop())
